@@ -1,3 +1,4 @@
+import sys
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
@@ -22,6 +23,7 @@ class Command(BaseCommand):
         name = course.name
         course.delete()
 
-        bot = Bot.objects.first()
-        message = 'Removed course: {0} - {1}'.format(crn, name)
-        bot.send_message(message)
+        if 'runserver' in sys.argv:
+            bot = Bot.objects.first()
+            message = 'Removed course: {0} - {1}'.format(crn, name)
+            bot.send_message(message)
