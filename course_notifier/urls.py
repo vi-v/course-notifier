@@ -24,11 +24,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-if len(Bot.objects.all()) == 0:
-    bot_id = input('Enter bot id > ')
-    Bot.objects.create(bot_id=bot_id)
-
 if 'runserver' in sys.argv:
+    if len(Bot.objects.all()) == 0:
+        bot_id = input('Enter bot id > ')
+        Bot.objects.create(bot_id=bot_id)
+
     bot = Bot.objects.first()
     bot.send_message('Server started')
     poll.run()
