@@ -14,14 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 import sys
+from threading import Thread
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+
+# Models
 from bot.models import Bot
 from course import poll
 
-
+# Views
+from bot import urls as bot_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('bot/', include(bot_urls)),
 ]
 
 if 'runserver' in sys.argv:
@@ -30,5 +36,6 @@ if 'runserver' in sys.argv:
         Bot.objects.create(bot_id=bot_id)
 
     bot = Bot.objects.first()
-    bot.send_message('Server started')
-    poll.run()
+    # bot.send_message('Server started')
+    thread = Thread(target=poll.run, daemon=True)
+    thread.start()
