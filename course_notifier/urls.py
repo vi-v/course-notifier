@@ -37,5 +37,5 @@ if 'runserver' in sys.argv:
 
     bot = Bot.objects.first()
     # bot.send_message('Server started')
-    thread = Thread(target=poll.run, daemon=True)
-    thread.start()
+    # thread = Thread(target=poll.run, daemon=True)
+    # thread.start()

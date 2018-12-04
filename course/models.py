@@ -9,4 +9,4 @@ class Course(models.Model):
     spots = models.IntegerField(default=0)
 
     def __str__(self):
-        return "{0} - {2} ({1})".format(self.pk, self.crn, self.name)
+        return "{0} CRN: {1} ID: {2}".format(self.name, self.crn, self.pk)
